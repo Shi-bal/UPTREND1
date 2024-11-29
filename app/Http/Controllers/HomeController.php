@@ -10,14 +10,15 @@ use App\Models\Product;
 class HomeController extends Controller
 {
     public function index(){
-        $product = Product::all(); // Fetch all products
-        return view('home.userpage', compact('product')); // Pass products to the view
+        $products = Product::all(); // Fetch all products
+        return view('home.userpage', compact('products')); // Pass products to the view
     }
     
     public function viewshoes(){
-        $product = Product::all(); // Fetch all products for the shoes page
-        return view('home.userpage', compact('product')); // Pass products to the view
+        $products = Product::all(); // Fetch all products for the shoes page
+        return view('home.userpage', compact('products')); // Pass products to the view
     }
+    
     
 
     public function viewcheckout(){
@@ -26,11 +27,38 @@ class HomeController extends Controller
 
     public function redirect(){
         $usertype = Auth::user()->usertype;
-
+    
         if ($usertype == '1') {
             return view('admin.home');
         } else {
-            return view('home.userpage');
+            // Call the index method to ensure $products are passed to the userpage view
+            return $this->index();  // This will call the index method and pass products
+        }
+    }
+    
+
+    public function product_details($id)
+    {
+        $products = Product::where('id', $id)->get();
+
+        if ($products->isEmpty()) {
+            return abort(404, 'No products found in this category');
+        }
+
+        return view('home.product_details', compact('products'));
+    }
+
+
+    public function add_cart($id)
+    {
+        if (Auth::id())
+        {
+            return redirect()->back();
+        }
+
+        else
+        {
+            return redirect('login');
         }
     }
 }

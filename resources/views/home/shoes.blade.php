@@ -51,6 +51,7 @@
                                     </a>
                                 </div>
                                 <div class="flex flex-col items-end justify-end space-y-2">
+                                   
                                     <div>
                                         <button class="increase-quantity px-2 py-1 border rounded-l-lg border-gray-300 border-r-0 hover:bg-black hover:text-white">+</button>
                                         <input type="number" value="1" min="1" class="w-12 py-1 text-center border border-gray-300">
