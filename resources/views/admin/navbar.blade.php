@@ -1,5 +1,12 @@
-<div class="sticky top-0 z-10">
+<div class="sticky top-0 z-20">
     <nav class="w-full sm:flex justify-between p-2 sm:p-4 lg:px-32 md:px-20 sm:px-14 items-center bg-white shadow-md">
+        <div>
+            <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="fixed top-0 left-0 p-2 ms-3 text-sm text-black rounded-lg sm:hidden">
+                <span class="sr-only">Open sidebar</span>
+                <i class="ph-bold ph-list"></i>
+            </button>
+        </div>
+    
         <div class="flex justify-center">
             <a href="/"><img class="w-[20px] md:w-[40px]" src="{{ asset('logos/uptrend.png') }}" alt="Logo"></a>
         </div>
@@ -23,6 +30,7 @@
         <!-- User Icon with Dropdown -->
         <div class="relative inline-block group">
             <!-- Trigger button with User Icon -->
+
             <button class="inline-flex items-center justify-center focus:outline-none">
                 <i class="ph-bold ph-user"></i>
             </button>
@@ -34,9 +42,9 @@
                     @if (Route::has('login'))
                         @auth
                             <!-- Logout Option -->
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('logout') }}" class="hover:bg-gray-100">
                                 @csrf
-                                <button type="submit" class="font-semibold block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                                <button type="submit" class="font-semibold block px-4 py-2 text-sm text-gray-700" role="menuitem">
                                     Logout
                                 </button>
                             </form>
@@ -51,14 +59,6 @@
             </div>
             
         </div>
-
-        <!-- Heart Icon -->
-        <button href="#"><i class="ph-bold ph-heart-straight"></i></button>
-
-        <!-- Bag Icon -->
-        <a href="/checkout">
-        <button><i class="ph-bold ph-bag"></i></button>
-        </a>
 
     </div>
 
