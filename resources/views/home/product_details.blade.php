@@ -63,19 +63,23 @@
                     <!-- Add Cart Form -->
                     <!-- Add Cart Form -->
                     <form action="{{ url('add_cart', $prod->id) }}" method="POST">
-                    @csrf
+                        @csrf
 
-                    <!-- Size -->
-                    <input type="hidden" name="size" id="selected-size" value="">
+                        <!-- Size -->
+                        <input type="hidden" name="size" id="selected-size" value="">
 
-                    <!-- Add to Cart Button -->
-                    <div class="mt-6 gap-2 sm:items-center grid lg:grid-cols-2 sm:mt-8">
-                        <button type="submit" class="flex items-center justify-center py-2.5 text-sm sm:text-lg font-medium rounded-lg bg-black text-white">
-                            <i class="ph-bold ph-bag mr-2"></i>
-                            Add to bag
-                        </button>
-                    </div>
-                </form>
+                        <!-- Hidden input for selected image (dynamic) -->
+                        <input type="hidden" name="selected_image" id="selected-image" value="{{ URL('product/' . $prod->image1) }}">
+
+                        <!-- Add to Cart Button -->
+                        <div class="mt-6 gap-2 sm:items-center grid lg:grid-cols-2 sm:mt-8">
+                            <button type="submit" class="flex items-center justify-center py-2.5 text-sm sm:text-lg font-medium rounded-lg bg-black text-white">
+                                <i class="ph-bold ph-bag mr-2"></i>
+                                Add to bag
+                            </button>
+                        </div>
+                    </form>
+
 
 
                 </div>
@@ -86,34 +90,34 @@
 
 
 <script>
-        // Handle size selection
-    // Handle size selection
-    const sizeButtons = document.querySelectorAll('.size-btn');
-    const selectedSizeInput = document.getElementById('selected-size');
-    const selectedImageInput = document.getElementById('selected-image');
+// Handle size selection
+const sizeButtons = document.querySelectorAll('.size-btn');
+const selectedSizeInput = document.getElementById('selected-size');
+const selectedImageInput = document.getElementById('selected-image');
 
-    // Set size and variant image dynamically
-    sizeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove 'selected' class from all buttons
-            sizeButtons.forEach(btn => btn.classList.remove('bg-gray-200'));
+// Set size dynamically
+sizeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Remove 'selected' class from all buttons
+        sizeButtons.forEach(btn => btn.classList.remove('bg-gray-200'));
 
-            // Add 'selected' class to clicked button
-            this.classList.add('bg-gray-200');
+        // Add 'selected' class to clicked button
+        this.classList.add('bg-gray-200');
 
-            // Set the selected size value in the hidden input field
-            selectedSizeInput.value = this.getAttribute('data-size');
-        });
+        // Set the selected size value in the hidden input field
+        selectedSizeInput.value = this.getAttribute('data-size');
     });
+});
 
-    // If you want to allow variant image selection (image1, image2, image3), you can update the selected image based on user input.
-    document.querySelectorAll('.hover-image').forEach(image => {
-        image.addEventListener('click', function() {
-            selectedImageInput.value = this.src; // Set the image URL as the selected image
-        });
+// Update the selected image when user clicks on an image (image1, image2, image3)
+document.querySelectorAll('.hover-image').forEach(image => {
+    image.addEventListener('click', function() {
+        // Update the hidden input field with the selected image URL
+        selectedImageInput.value = this.src; // Set the image URL as the selected image
     });
+});
 
-    window.addEventListener('load', function() {
+window.addEventListener('load', function() {
     const groups = document.querySelectorAll('.group');
     groups.forEach(function(group) {
         const mainImage = group.querySelector('.main-image');
@@ -163,6 +167,45 @@
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const selectedSizeInput = document.getElementById('selected-size');
+    const selectedImageInput = document.getElementById('selected-image');
+    const sizeButtons = document.querySelectorAll('.size-btn');
+    const imageButtons = document.querySelectorAll('.hover-image'); // Image buttons (image1, image2, image3)
+
+    let sizeSelected = false;
+    let imageSelected = false;
+
+    // Handle size selection
+    sizeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            sizeButtons.forEach(btn => btn.classList.remove('bg-gray-200')); // Remove 'selected' class from all buttons
+            this.classList.add('bg-gray-200'); // Add 'selected' class to clicked button
+            selectedSizeInput.value = this.getAttribute('data-size');
+            sizeSelected = true; // Mark size as selected
+        });
+    });
+
+    // Update selected image when user clicks on an image (image1, image2, image3)
+    imageButtons.forEach(image => {
+        image.addEventListener('click', function() {
+            selectedImageInput.value = this.src; // Set the image URL as the selected image
+            imageSelected = true; // Mark image as selected
+        });
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', function (e) {
+        if (!sizeSelected || !imageSelected) {
+            e.preventDefault(); // Prevent form submission if either size or image is not selected
+            alert('Please select both a size and a product image.');
+        }
+    });
+});
+
+
 
 
 </script>

@@ -43,7 +43,6 @@
 
     Route::get('/showcart', [HomeController::class, 'show_cart'])->name('home.showcart');
 
+    Route::get('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name('remove.showcart');
 
-
-    
 

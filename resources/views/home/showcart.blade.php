@@ -11,6 +11,7 @@
 
 <body>
 @include('home.navbar')
+
 <?php $shippingFee = 300; ?>
 
 <section class="bg-white py-8 antialiased md:py-16">
@@ -34,7 +35,7 @@
                                     <button class="decrease-quantity px-2 border rounded-r-lg border-gray-300 border-l-0 hover:bg-black hover:text-white">-</button>
                                 </div>
                                 <div class="text-end md:order-4 md:w-32">
-                                    <p class="text-base font-bold text-gray-900 ">{{$cart->price}}</p>
+                                    <p class="text-base font-bold text-gray-900 ">₱{{$cart->price}}</p>
                                 </div>
                             </div>
                             <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
@@ -43,9 +44,13 @@
                                 </div>
                                 <div class="flex items-center gap-4">
                                     <button class="text-sm font-medium hover:underline"><i class="fa-regular fa-heart me-1.5"></i>Add to Favorites</button>
-                                    <a href="" onclick="return confirm('Are you sure you want to remove this item from your cart?');">
-                                        <button class="text-sm font-medium hover:underline text-red-600"><i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove</button>
+                                    <a href="{{url('remove_cart', $cart->id)}}">
+                                        
+                                        <button type="submit" class="text-sm font-medium hover:underline text-red-600">
+                                            <i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove
+                                        </button>
                                     </a>
+
                                 </div>
                             </div>
                         </div>
@@ -81,7 +86,7 @@
 
                 <div class="flex items-center justify-center gap-2">
                     <span class="text-sm font-normal text-gray-500"> or </span>
-                    <a href="#" title="" class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline">
+                    <a href="/" title="" class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline">
                         Continue Shopping
                     </a>
                 </div>
