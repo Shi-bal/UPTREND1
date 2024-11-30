@@ -32,24 +32,25 @@
             </div>
     </div>
 
-    <div class="p-10 sm:p-20">
-            <div class="flex justify-center">
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                    @foreach ($products as $prod) <!-- Loop through each product -->
-                        <div class="group">
-                            <a href="{{url('product_details', $prod->id)}}"><img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover main-image"></a> <!-- Display product image -->
-                            <div class="pt-1 hidden group-hover:inline-flex gap-[2px]">
-                                <img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover size-14 hover-image pb-[2px] hover:bg-black">
-                                <img src="{{ URL('product/' . $prod->image2) }}" alt="" class="object-cover size-14 hover-image pb-[2px] hover:bg-black">
-                                <img src="{{ URL('product/' . $prod->image3) }}" alt="" class="object-cover size-14 hover-image pb-[2px] hover:bg-black">
-                            </div>
-                            <div class="py-4 flex justify-between">
-                                <div>
-                                    <a href="">
-                                        <p class="font-semibold">{{ $prod->title }}</p> <!-- Display product title -->
-                                        <!-- <p>{{ $prod->description }}</p> Display product description -->
-                                        <!-- <p>{{ $prod->quantity }} colors</p>-->
-                                        <div class="mt-2">
+    <div class="p-20 sm:p-20">
+    <div>
+        <p class="font-semibold text-2xl sm:font-medium sm:text-2xl sm:mb-6">See What's New</p>
+    </div>
+        <div class="flex justify-center">
+
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach ($products as $prod)
+
+                <div class="flex flex-col">
+                    <div class="h-[600px] items-center justify-center">
+                    <a href="{{url('product_details', $prod->id)}}" class="h-full w-full">
+                        <img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover h-full w-full">
+                    </a>
+                    </div>
+                    <div class="py-4">
+                        <p class="font-semibold">{{ $prod->title }}</p>
+                        <p>{{ $prod->quantity }} Variants</p>
+                        <div class="mt-2">
                                             @if($prod->discount_price != null)
                                                 <!-- Display discount price and strike-through original price -->
                                                 <p class="font-semibold text-red-600">₱{{ number_format($prod->discount_price, 2) }}</p>
@@ -59,15 +60,12 @@
                                                 <p class="font-semibold">₱{{ number_format($prod->price, 2) }}</p>
                                             @endif
                                         </div>
-                                    </a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
 
+                    </div>
+                </div>
+            @endforeach
+                
+        </div>
+    </div>
     </body>
 </html>

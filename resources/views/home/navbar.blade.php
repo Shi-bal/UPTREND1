@@ -56,10 +56,9 @@
         <button href="#"><i class="ph-bold ph-heart-straight"></i></button>
 
         <!-- Bag Icon -->
-        <a href="/checkout">
-        <button><i class="ph-bold ph-bag"></i></button>
+        <a href="/showcart">
+            <button><i class="ph-bold ph-bag"></i></button>
         </a>
-
     </div>
 
 </div>

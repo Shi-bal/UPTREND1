@@ -5,6 +5,8 @@
 
     use App\Http\Controllers\AdminController;
 
+    use App\Http\Controllers\CartController;
+
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('/userpage', [HomeController::class, 'viewshoes']);
@@ -37,4 +39,11 @@
 
     Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
 
-    Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
+    Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);  
+
+    Route::get('/showcart', [HomeController::class, 'show_cart'])->name('home.showcart');
+
+
+
+    
+

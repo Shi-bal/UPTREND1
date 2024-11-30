@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Cart;
 
 class HomeController extends Controller
 {
@@ -48,17 +49,56 @@ class HomeController extends Controller
         return view('home.product_details', compact('products'));
     }
 
-
-    public function add_cart($id)
+    public function add_cart(Request $request, $id)
     {
-        if (Auth::id())
-        {
-            return redirect()->back();
-        }
-
-        else
-        {
-            return redirect('login');
+        if (Auth::id()) {
+            $user = Auth::user();
+            $product = Product::find($id);
+    
+            if (!$product) {
+                return redirect()->back()->with('error', 'Product not found');
+            }
+    
+            $cart = new Cart;
+    
+            // Save user details
+            $cart->name = $user->name;
+            $cart->email = $user->email;
+            $cart->phone = $user->phone;
+            $cart->address = $user->address;
+            $cart->user_id = $user->id;
+    
+            // Save product details
+            $cart->product_title = $product->title;
+            $cart->size = $request->input('size');
+            $cart->image1 = $product->image1;  // Assuming the product image is stored in 'image1' field
+            $cart->price = $product->discount_price ?? $product->price;
+            $cart->product_id = $product->id;
+            $cart->quantity = $request->input('quantity', 1);
+    
+            $cart->save();
+    
+            return redirect()->route('home.showcart')->with('success', 'Product added to cart');
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to add items to the cart.');
         }
     }
+    public function show_cart()
+    {
+        if (Auth::id()) {
+            $user_id = Auth::id();
+            $cart = Cart::where('user_id', $user_id)->get();
+    
+            return view('home.showcart', compact('cart')); // Passing $cart directly
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to view your cart.');
+        }
+    }
+    
+
+    
+
+
+
+    
 }

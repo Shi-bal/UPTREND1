@@ -15,7 +15,9 @@ class AdminController extends Controller
     {
         $data = Category::all();
 
-       
+        // Debugging: Check if data is fetched correctly
+     
+
         return view('admin.category', compact('data'));
     }
 
@@ -53,7 +55,7 @@ class AdminController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         $product->quantity = $request->quantity;
-        $product->discount_price = $request->discount_price; // Correcting dis_price to match form name
+        $product->discount_price = $request->discount_price; // Correcting `dis_price` to match form name
         $product->category = $request->category;
 
         // Handle the first image

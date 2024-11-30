@@ -91,6 +91,8 @@
                 </select>
               </div>
 
+            
+
               <div class="div_design">
                 <label>Product Image 1:</label>
                 <input type="file" name="image1" required>
@@ -105,6 +107,8 @@
                 <label>Product Image 3:</label>
                 <input type="file" name="image3" required>
               </div>
+
+              
 
               <div class="div_design">
                 <input type="submit" value="Add Product" class="btn btn-primary">
