@@ -29,7 +29,7 @@ class HomeController extends Controller
         $usertype = Auth::user()->usertype;
     
         if ($usertype == '1') {
-            return view('admin.home');
+            return view('admin.admin_dashboard');
         } else {
             // Call the index method to ensure $products are passed to the userpage view
             return $this->index();  // This will call the index method and pass products
