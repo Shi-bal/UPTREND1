@@ -7,6 +7,8 @@
 
     use App\Http\Controllers\CartController;
 
+
+
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     Route::get('/userpage', [HomeController::class, 'viewshoes']);
@@ -46,3 +48,8 @@
     Route::get('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name('remove.showcart');
 
 
+    Route::post('/wishlist', [HomeController::class, 'add_wishlist']);
+
+    Route::get('/wishlist', [HomeController::class, 'view_wishlist'])->name('wishlist.view');
+
+    Route::post('/wishlist/{id}', [HomeController::class, 'remove_wishlist'])->name('wishlist.remove');

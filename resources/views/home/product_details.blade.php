@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link rel="stylesheet" type="text/css" href="{{ mix('css/style.css') }}"> -->
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -13,6 +14,19 @@
 
     <body>
         @include('home.navbar')
+
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('info'))
+            <div class="alert alert-info">
+                {{ session('info') }}
+            </div>
+        @endif
 
         <section class="py-8 md:py-16">
     <div class="max-w-screen-lg px-4 mx-auto 2xl:px-0">
@@ -50,7 +64,7 @@
                         <p class="text-base font-bold sm:text-xl mt-10">
                             Select Size
                         </p>
-                        <div class="mt-6 sm:mt-8 grid grid-cols-2 xl:grid-cols-2 gap-1">
+                        <div class="mt-6 sm:mt-8 grid grid-cols-2 gap-1">
                             <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 11 / W 12.5">US M 11 / W 12.5</button>
                             <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 10.5 / W 12">US M 10.5 / W 12</button>
                             <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 10 / W 11.5">US M 10 / W 11.5</button>
@@ -61,29 +75,38 @@
                     </div>
                     
                     <!-- Add Cart Form -->
-                    <!-- Add Cart Form -->
-                    <form action="{{ url('add_cart', $prod->id) }}" method="POST">
-                        @csrf
-
-                        <!-- Size -->
-                        <input type="hidden" name="size" id="selected-size" value="">
-
-                        <!-- Hidden input for selected image (dynamic) -->
-                        <input type="hidden" name="selected_image" id="selected-image" value="{{ URL('product/' . $prod->image1) }}">
-
-                        <!-- Add to Cart Button -->
-                        <div class="mt-6 gap-2 sm:items-center grid lg:grid-cols-2 sm:mt-8">
+                    <div class="grid grid-cols-5 gap-2">
+                        <form class="mt-6 gap-2 sm:items-center grid col-span-4 sm:mt-8" action="{{ url('add_cart', $prod->id) }}" method="POST">
+                            @csrf
+                            <!-- Size -->
+                            <input type="hidden" name="size" id="selected-size" value="">
+                            <!-- Hidden input for selected image (dynamic) -->
+                            <input type="hidden" name="selected_image" id="selected-image" value="{{ URL('product/' . $prod->image1) }}">
+                            <!-- Add to Cart Button -->
                             <button type="submit" class="flex items-center justify-center py-2.5 text-sm sm:text-lg font-medium rounded-lg bg-black text-white">
                                 <i class="ph-bold ph-bag mr-2"></i>
                                 Add to bag
                             </button>
-                        </div>
-                    </form>
+                        </form>
+                        @endforeach
+                        
+                        @foreach ($products as $prod)
+                            <form class="mt-6 gap-2 sm:items-center grid col-span-1 sm:mt-8" action="{{ url('wishlist') }}" method="POST">
+                                @csrf
+                                <!-- Hidden input field to send the product ID -->
+                                <input type="hidden" name="product_id" value="{{ $prod->id }}">
+
+                                <button type="submit" class="flex items-center justify-center py-2.5 text-sm sm:text-lg font-medium rounded-lg bg-black text-white">
+                                    <i class="ph-bold ph-heart-straight text-sm sm:text-lg"></i>
+                                </button>
+                            </form>
+                        @endforeach
 
 
+                    </div>
 
                 </div>
-            @endforeach
+          
         </div>
     </div>
 </section>

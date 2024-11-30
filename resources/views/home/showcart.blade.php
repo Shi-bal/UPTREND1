@@ -68,21 +68,21 @@
                     <div class="space-y-2">
                         <dl class="flex items-center justify-between gap-4">
                             <dt class="text-base font-normal text-gray-500">Bag</dt>
-                            <dd class="text-base font-medium text-gray-900 ">₱{{$totalprice}}</dd>
+                            <dd class="text-base font-medium text-gray-900 ">₱{{number_format($totalprice, 2)}}</dd>
                         </dl>
                         <dl class="flex items-center justify-between gap-4">
                             <dt class="text-base font-normal text-gray-500">Shipping Fee</dt>
-                            <dd class="text-base font-medium text-gray-900 ">₱{{$shippingFee}}</dd>
+                            <dd class="text-base font-medium text-gray-900 ">₱{{number_format($shippingFee, 2)}}</dd>
                         </dl>
                     </div>
 
                     <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                         <dt class="text-base font-bold text-gray-900 ">Total</dt>
-                        <dd class="text-base font-bold text-gray-900 ">₱{{$totalprice + $shippingFee}}</dd>
+                        <dd class="text-base font-bold text-gray-900 ">₱{{number_format($totalprice + $shippingFee, 2)}}</dd>
                     </dl>
                 </div>
 
-                <a href="#" class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Checkout</a>
+                <a href="#" class="flex w-full items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white">Proceed to Checkout</a>
 
                 <div class="flex items-center justify-center gap-2">
                     <span class="text-sm font-normal text-gray-500"> or </span>

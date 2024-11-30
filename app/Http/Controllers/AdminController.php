@@ -15,9 +15,6 @@ class AdminController extends Controller
     {
         $data = Category::all();
 
-        // Debugging: Check if data is fetched correctly
-     
-
         return view('admin.category', compact('data'));
     }
 
@@ -42,7 +39,7 @@ class AdminController extends Controller
     }
 
     public function view_product()
-    {   
+    {
         $category=category::all();
         return view('admin.product', compact('category'));
     }
@@ -55,7 +52,7 @@ class AdminController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         $product->quantity = $request->quantity;
-        $product->discount_price = $request->discount_price; // Correcting `dis_price` to match form name
+        $product->discount_price = $request->discount_price; // Correcting dis_price to match form name
         $product->category = $request->category;
 
         // Handle the first image
@@ -84,7 +81,7 @@ class AdminController extends Controller
 
         $product->save();
 
-        return redirect()->back()->with('message', 'Product Added Successfully');
+        return redirect()->back()->with('message', 'Product Added Successfully!');
     }
 
     public function show_product()

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Wishlist;
 
 class HomeController extends Controller
 {
@@ -30,7 +31,7 @@ class HomeController extends Controller
         $usertype = Auth::user()->usertype;
     
         if ($usertype == '1') {
-            return view('admin.home');
+            return view('admin.adminDashboard');
         } else {
             // Call the index method to ensure $products are passed to the userpage view
             return $this->index();  // This will call the index method and pass products
@@ -102,5 +103,65 @@ class HomeController extends Controller
 
         return redirect()->back();
     }
+
+
+    public function add_wishlist(Request $request)
+    {
+        $productId = $request->input('product_id'); // Get the product ID from the form
+        $product = Product::find($productId); // Find the product by ID
+    
+        if ($product) {
+            // Retrieve the wishlist from the session (if it exists), otherwise an empty array
+            $wishlist = session()->get('wishlist', []);
+    
+            // Add the product to the wishlist if it's not already in there
+            if (!isset($wishlist[$product->id])) {
+                $wishlist[$product->id] = $product;
+            }
+    
+            // Save the updated wishlist back to the session
+            session()->put('wishlist', $wishlist);
+        }
+    
+        return redirect()->route('wishlist.view'); // Redirect to the wishlist page
+    }
+    
+
+    public function view_wishlist()
+    {
+        if(Auth::id()){
+            $wishlist = session()->get('wishlist', []); // Get the wishlist from the session
+    
+            return view('home.wishlist', compact('wishlist')); // Pass the wishlist data to the view
+
+        }
+
+        else{
+            return redirect()->route('login')->with('error', 'Please log in to view your cart.');
+        }
+        
+    }
+    
+    public function remove_wishlist($id)
+{
+    // Get the current wishlist from the session
+    $wishlist = session()->get('wishlist', []);
+
+    // Check if the product exists in the wishlist
+    if (isset($wishlist[$id])) {
+        // Remove the product from the wishlist array
+        unset($wishlist[$id]);
+
+        // Save the updated wishlist back to the session
+        session()->put('wishlist', $wishlist);
+    }
+
+    // Redirect back to the wishlist page
+    return redirect()->route('wishlist.view');
+}
+
+
+        
+
     
 }
