@@ -29,7 +29,7 @@
                                     </a>
                                     <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                                         <div>
-                                            <a href="#" class="text-base font-medium text-gray-900 hover:underline ">{{ $product->title }}</a>
+                                            <a href="#"" class="text-base font-medium text-gray-900 hover:underline ">{{ $product->title }}</a>
                                         </div>
                                         <div class="flex items-center gap-4">
                                             <span class="text-base font-bold text-gray-900">₱{{ number_format($product->price, 2) }}</span>
@@ -38,11 +38,11 @@
                                     <div class="flex items-center justify-between md:order-3 md:justify-end">
                                     <form action="{{ route('wishlist.remove', $product->id) }}" method="POST">
                                         @csrf
-                                        @method('DELETE')
                                         <button type="submit" class="text-sm font-medium hover:underline text-red-600">
                                             <i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove
                                         </button>
                                     </form>
+
 
                                     </div>
                                 </div>
