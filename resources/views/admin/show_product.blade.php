@@ -1,97 +1,68 @@
+
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
-    @include('admin.css')
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css'); }}">
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+        <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <title>UP TREND</title>
+    </head>
 
-    <style type="text/css">
+    <body>
+    @include('admin.navbar')
 
-        .center{
-            margin: auto;
-            width: 50%;
-            border: 2px solid skyblue;
-            text-align: center;
-            margin-top: 40px;
-        }
+    <div class="">
 
-        .img_size{
-            width: 100px;
-            height: 100px;
-        }
+        <div class="">
+        <div class="">
+        
 
-        .th_color{
-            background: skyblue;
-
-        }
-
-        .th_deg{
-            padding: 30px;
-        }
-
-    </style>
-  </head>
-  <body>
-    <div class="container-scroller">
-      <!-- partial:partials/_sidebar.html -->
-      @include('admin.sidebar')
-      <!-- partial -->
-      @include('admin.header')
-
-      <div class="main-panel">
-        <div class="content-wrapper">
-
-
-        <table class="center">
-            <tr class="th_color">
-                <th class="th_deg">Product Title</th>
-                <th class="th_deg">Description</th>
-                <th class="th_deg">Quantity</th>
-                <th class="th_deg">Category</th>
-                <th class="th_deg">Price</th>
-                <th class="th_deg">Discount Price</th>
-                <th class="th_deg">Image 1</th>
-                <th class="th_deg">Image 2</th>
-                <th class="th_deg">Image 3</th>
-
-                
-
-            </tr>
-
-            @foreach($product as $product)
-
-            <tr>
-                <td>{{$product->title}}</td>
-                <td>{{$product->description}}</td>
-                <td>{{$product->quantity}}</td>
-                <td>{{$product->category}}</td>
-                <td>{{$product->price}}</td>
-                <td>{{$product->discount_price}}</td>
-                <td>
-                    <img class="img_size" src="/product/{{$product->image1}}">
-                </td>
-                <td>
-                    <img class="img_size" src="/product/{{$product->image2}}">
-
-                </td>
-                <td>
-                    <img class="img_size" src="/product/{{$product->image3}}">
-
-                </td>
-
-            </tr>
-
-            @endforeach
-        </table>
+    <div class="p-4 sm:ml-64">
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left">
+                <thead class="uppercase">
+                    <tr class="border-2">
+                        <th scope="col" class="px-6 py-3">Product Title</th>
+                        <th scope="col" class="px-6 py-3">Description</th>
+                        <th scope="col" class="px-6 py-3">Quantity</th>
+                        <th scope="col" class="px-6 py-3">Category</th>
+                        <th scope="col" class="px-6 py-3">Price</th>
+                        <th scope="col" class="px-6 py-3">Discount Price</th>
+                        <th scope="col" class="px-6 py-3 text-center">Image 1</th>
+                        <th scope="col" class="px-6 py-3 text-center">Image 2</th>
+                        <th scope="col" class="px-6 py-3 text-center">Image 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($product as $product)
+                    <tr class="border-b text-black">
+                        <td class="px-6 py-4">{{$product->title}}</td>
+                        <td class="px-6 py-4">{{$product->description}}</td>
+                        <td class="px-6 py-4">{{$product->quantity}}</td>
+                        <td class="px-6 py-4">{{$product->category}}</td>
+                        <td class="px-6 py-4">₱{{$product->price}}</td>
+                        <td class="px-6 py-4">₱{{$product->discount_price}}</td>
+                        <td class="px-6 py-4">
+                            <img class="" src="/product/{{$product->image1}}">
+                        </td>
+                        <td class="px-6 py-4">
+                            <img class="" src="/product/{{$product->image2}}">
+                        </td>
+                        <td class="px-6 py-4">
+                            <img class="" src="/product/{{$product->image3}}">
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
         </div>
-      </div>
-     
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    @include('admin.script')
-
-  </body>
+        </div>
+    </div>
+    </body>
 </html>
