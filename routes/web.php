@@ -13,7 +13,6 @@
 
     Route::get('/userpage', [HomeController::class, 'viewshoes']);
 
-    Route::get('/checkout', [HomeController::class, 'viewcheckout']);
 
     Route::middleware([
         'auth:sanctum',
@@ -53,3 +52,13 @@
     Route::get('/wishlist', [HomeController::class, 'view_wishlist'])->name('wishlist.view');
 
     Route::post('/wishlist/{id}', [HomeController::class, 'remove_wishlist'])->name('wishlist.remove');
+
+
+    Route::post('/checkout', [HomeController::class, 'add_checkout']);
+
+    Route::get('/checkout', [HomeController::class, 'viewcheckout'])->name('checkout.view');
+
+    Route::post('/checkout/{id}', [HomeController::class, 'remove_checkout'])->name('checkout.remove');
+
+
+    Route::post('/checkout/payment', [PaymentController::class, 'checkout_payment'])->name('checkout.payment');

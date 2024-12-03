@@ -29,7 +29,7 @@
                                     </a>
                                     <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
                                         <div>
-                                            <a href="#"" class="text-base font-medium text-gray-900 hover:underline ">{{ $product->title }}</a>
+                                            <a href="#" class="text-base font-medium text-gray-900 hover:underline ">{{ $product->title }}</a>
                                         </div>
                                         <div class="flex items-center gap-4">
                                             <span class="text-base font-bold text-gray-900">₱{{ number_format($product->price, 2) }}</span>

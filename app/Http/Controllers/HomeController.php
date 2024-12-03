@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Wishlist;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -20,11 +21,11 @@ class HomeController extends Controller
         $products = Product::all(); // Fetch all products for the shoes page
         return view('home.userpage', compact('products')); // Pass products to the view
     }
-    
-    
 
     public function viewcheckout(){
-        return view('home.checkout');
+        $user = Auth::user();
+        $orders = Order::where('user_id', $user->id)->get();
+        return view('home.checkout', compact('orders'));
     }
 
     public function redirect(){
@@ -160,8 +161,56 @@ class HomeController extends Controller
     return redirect()->route('wishlist.view');
 }
 
+    
+    public function add_checkout() {
 
+        $user = Auth::user();
+        $userid = $user->id;
         
+        $data = cart::where('user_id', '=', $userid)->get();
+
+        foreach($data as $data) {
+
+            $order = new order;
+
+            $order->name = $data->name;
+            $order->email = $data->email;
+            $order->phone = $data->phone;
+            $order->address = $data->address;
+            $order->user_id = $data->user_id;
+
+            $order->price = $data->price;
+            $order->quantity = $data->quantity;
+            $order->image1 = $data->image1;
+            $order->size = $data->size;
+            $order->color = $data->color;
+            $order->product_id = $data->product_id;
+            $order->product_title = $data->product_title;
+
+            $order->payment_status = 'Pending';
+            $order->delivery_status = 'Pending';
+
+            $order->save();
+
+            $cart_id = $data->id;
+            $cart = cart::find($cart_id);
+            $cart->delete();
+        }
+
+        return redirect()->route('checkout.view')->with('message', 'Order placed successfully.');
+
+    }
+
+    public function remove_checkout($id)
+    {
+        $order = session()->get('checkout', []);
+        if (isset($order[$id])) {
+            unset($order[$id]);
+            session()->put('checkout', $order);
+        }
+        return redirect()->route('checkout.view');
+    }
+
 
     
 }

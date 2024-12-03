@@ -82,7 +82,12 @@
                     </dl>
                 </div>
 
-                <a href="#" class="flex w-full items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white">Proceed to Checkout</a>
+                <form action="{{ url('checkout') }}" method="POST" class="w-full">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white">
+                        Proceed to Checkout
+                    </button>
+                </form>
 
                 <div class="flex items-center justify-center gap-2">
                     <span class="text-sm font-normal text-gray-500"> or </span>
