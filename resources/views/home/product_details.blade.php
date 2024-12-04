@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link rel="stylesheet" type="text/css" href="{{ mix('css/style.css') }}"> -->
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
         <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <title>UP TREND</title>
@@ -30,83 +29,89 @@
 
         <section class="py-8 md:py-16">
     <div class="max-w-screen-lg px-4 mx-auto 2xl:px-0">
-        <div class="lg:grid lg:grid-cols-2 lg:gap-4 xl:gap-8 group">
+        <div class="lg:grid lg:grid-cols-5 group">
             @foreach ($products as $prod)
-                <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-                    <img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover hover-image rounded-md main-image">
+            <div class="col-span-3 shrink-0 max-w-md lg:max-w-lg mx-auto grid grid-cols-5 gap-4">
+                <div class="col-span-1 flex flex-col gap-2">
+                        <img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover size-24 hover-image rounded-md hover-image">
+                        <img src="{{ URL('product/' . $prod->image2) }}" alt="" class="object-cover size-24 hover-image rounded-md hover-image">
+                        <img src="{{ URL('product/' . $prod->image3) }}" alt="" class="object-cover size-24 hover-image rounded-md hover-image">
+                </div>
+                <div class="col-span-4">
+                <img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover hover-image rounded-md main-image">
+                </div>
+            </div>
+
+            <div class="col-span-2 mt-6 sm:mt-8 lg:mt-0">
+                <p class="text-2xl font-bold sm:text-3xl ">
+                    {{ $prod->title }} <!-- Display product title -->
+                </p>
+
+                <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
+                    @if($prod->discount_price != null)
+                        <h1 class="text-lg font-semibold sm:text-xl">
+                            ₱{{ number_format($prod->discount_price, 2) }}
+                        </h1>
+                    @else
+                        <h1 class="text-lg font-semibold sm:text-xl">
+                            ₱{{ number_format($prod->price, 2) }}
+                        </h1>
+                    @endif
                 </div>
 
-                <div class="mt-6 sm:mt-8 lg:mt-0">
-                    <p class="text-2xl font-bold sm:text-3xl ">
-                        {{ $prod->title }} <!-- Display product title -->
+                <!-- Add Size Selection -->
+                <div>
+                    <p class="text-base font-bold sm:text-xl mt-10">
+                        Select Size
                     </p>
-
-                    <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
-                        @if($prod->discount_price != null)
-                            <h1 class="text-lg font-semibold sm:text-xl">
-                               ₱{{ number_format($prod->discount_price, 2) }}
-                            </h1>
-                        @else
-                            <h1 class="text-lg font-semibold sm:text-xl">
-                               ₱{{ number_format($prod->price, 2) }}
-                            </h1>
-                        @endif
+                    <div class="mt-6 sm:mt-8 grid grid-cols-2 gap-1">
+                        <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 11 / W 12.5">US M 11 / W 12.5</button>
+                        <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 10.5 / W 12">US M 10.5 / W 12</button>
+                        <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 10 / W 11.5">US M 10 / W 11.5</button>
+                        <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 9.5 / W 11">US M 9.5 / W 11</button>
+                        <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 9 / W 10.5">US M 9 / W 10.5</button>
+                        <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 8.5 / W 10">US M 8.5 / W 10</button>
                     </div>
+                </div>
 
-                    <div class="mt-6 sm:mt-8 inline-flex gap-1">
-                        <img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover size-16 hover-image border-b-white hover:border-b-black border-b-4 rounded-md hover-image">
-                        <img src="{{ URL('product/' . $prod->image2) }}" alt="" class="object-cover size-16 hover-image border-b-white hover:border-b-black border-b-4 rounded-md hover-image">
-                        <img src="{{ URL('product/' . $prod->image3) }}" alt="" class="object-cover size-16 hover-image border-b-white hover:border-b-black border-b-4 rounded-md hover-image">
-                    </div>
-
-                    <!-- Add Size Selection -->
-                    <div>
+                <!-- <div>
                         <p class="text-base font-bold sm:text-xl mt-10">
-                            Select Size
+                            Select Quantity
                         </p>
-                        <div class="mt-6 sm:mt-8 grid grid-cols-2 gap-1">
-                            <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 11 / W 12.5">US M 11 / W 12.5</button>
-                            <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 10.5 / W 12">US M 10.5 / W 12</button>
-                            <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 10 / W 11.5">US M 10 / W 11.5</button>
-                            <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 9.5 / W 11">US M 9.5 / W 11</button>
-                            <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 9 / W 10.5">US M 9 / W 10.5</button>
-                            <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 8.5 / W 10">US M 8.5 / W 10</button>
-                        </div>
-                    </div>
+                        <button class="mt-6 increase-quantity px-2 py-1 border rounded-l-lg border-gray-300 border-r-0 hover:bg-black hover:text-white">+</button><input type="number" value="1" min="1" class="w-12 py-1 text-center border border-gray-300"><button class="decrease-quantity px-2 py-1 border rounded-r-lg border-gray-300 border-l-0 hover:bg-black hover:text-white">-</button>
+
+                    </div> -->
+                
+                <!-- Add Cart Form -->
+                <div class="grid grid-cols-5 gap-2">
+                    <form class="mt-6 gap-2 sm:items-center grid col-span-4 sm:mt-8" action="{{ url('add_cart', $prod->id) }}" method="POST">
+                        @csrf
+                        <!-- Size -->
+                        <input type="hidden" name="size" id="selected-size" value="">
+                        <!-- Hidden input for selected image (dynamic) -->
+                        <input type="hidden" name="selected_image" id="selected-image" value="{{ URL('product/' . $prod->image1) }}">
+                        <!-- Add to Cart Button -->
+                        <button type="submit" class="flex items-center justify-center py-2.5 text-sm sm:text-lg font-medium rounded-lg bg-black text-white">
+                            <i class="ph-bold ph-bag mr-2"></i>
+                            Add to bag
+                        </button>
+                    </form>
+                    @endforeach
                     
-                    <!-- Add Cart Form -->
-                    <div class="grid grid-cols-5 gap-2">
-                        <form class="mt-6 gap-2 sm:items-center grid col-span-4 sm:mt-8" action="{{ url('add_cart', $prod->id) }}" method="POST">
+                    @foreach ($products as $prod)
+                        <form class="mt-6 gap-2 sm:items-center grid col-span-1 sm:mt-8" action="{{ url('wishlist') }}" method="POST">
                             @csrf
-                            <!-- Size -->
-                            <input type="hidden" name="size" id="selected-size" value="">
-                            <!-- Hidden input for selected image (dynamic) -->
-                            <input type="hidden" name="selected_image" id="selected-image" value="{{ URL('product/' . $prod->image1) }}">
-                            <!-- Add to Cart Button -->
+                            <!-- Hidden input field to send the product ID -->
+                            <input type="hidden" name="product_id" value="{{ $prod->id }}">
+
                             <button type="submit" class="flex items-center justify-center py-2.5 text-sm sm:text-lg font-medium rounded-lg bg-black text-white">
-                                <i class="ph-bold ph-bag mr-2"></i>
-                                Add to bag
+                                <i class="ph-bold ph-heart-straight text-sm sm:text-lg"></i>
                             </button>
                         </form>
-                        @endforeach
-                        
-                        @foreach ($products as $prod)
-                            <form class="mt-6 gap-2 sm:items-center grid col-span-1 sm:mt-8" action="{{ url('wishlist') }}" method="POST">
-                                @csrf
-                                <!-- Hidden input field to send the product ID -->
-                                <input type="hidden" name="product_id" value="{{ $prod->id }}">
-
-                                <button type="submit" class="flex items-center justify-center py-2.5 text-sm sm:text-lg font-medium rounded-lg bg-black text-white">
-                                    <i class="ph-bold ph-heart-straight text-sm sm:text-lg"></i>
-                                </button>
-                            </form>
-                        @endforeach
-
-
-                    </div>
-
+                    @endforeach
                 </div>
-          
+
+            </div>
         </div>
     </div>
 </section>
@@ -227,10 +232,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
-
-
-
 </script>
 
 
