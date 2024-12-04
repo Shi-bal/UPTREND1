@@ -40,6 +40,11 @@
 
     Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
 
+
+    Route::get('/show_orders', [AdminController::class, 'show_orders']);
+
+
+
     Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);  
 
     Route::get('/showcart', [HomeController::class, 'show_cart'])->name('home.showcart');

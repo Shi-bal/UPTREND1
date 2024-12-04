@@ -8,6 +8,8 @@ use App\Models\Category;
 
 use App\Models\Product;
 
+use App\Models\Order;
+
 
 class AdminController extends Controller
 {
@@ -89,6 +91,14 @@ class AdminController extends Controller
         $product=product::all();
 
         return view('admin.show_product', compact('product'));
+    }
+
+
+    public function show_orders() 
+    {
+        $order = Order::all();
+        return view('admin.show_orders', compact('order'));
+
     }
 
 }
