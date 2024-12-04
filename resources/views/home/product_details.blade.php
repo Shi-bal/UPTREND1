@@ -16,13 +16,20 @@
 
         <section class="py-8 md:py-16">
     <div class="max-w-screen-lg px-4 mx-auto 2xl:px-0">
-        <div class="lg:grid lg:grid-cols-2 lg:gap-4 xl:gap-8 group">
+        <div class="lg:grid lg:grid-cols-5 group">
             @foreach ($products as $prod)
-                <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
+                <div class="col-span-3 shrink-0 max-w-md lg:max-w-lg mx-auto grid grid-cols-5 gap-4">
+                    <div class="col-span-1 flex flex-col gap-2">
+                            <img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover size-24 hover-image rounded-md hover-image">
+                            <img src="{{ URL('product/' . $prod->image2) }}" alt="" class="object-cover size-24 hover-image rounded-md hover-image">
+                            <img src="{{ URL('product/' . $prod->image3) }}" alt="" class="object-cover size-24 hover-image rounded-md hover-image">
+                    </div>
+                    <div class="col-span-4">
                     <img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover hover-image rounded-md main-image">
+                    </div>
                 </div>
 
-                <div class="mt-6 sm:mt-8 lg:mt-0">
+                <div class="col-span-2 mt-6 sm:mt-8 lg:mt-0">
                     <p class="text-2xl font-bold sm:text-3xl ">
                         {{ $prod->title }} <!-- Display product title -->
                     </p>
@@ -39,12 +46,6 @@
                         @endif
                     </div>
 
-                    <div class="mt-6 sm:mt-8 inline-flex gap-1">
-                        <img src="{{ URL('product/' . $prod->image1) }}" alt="" class="object-cover size-16 hover-image border-b-white hover:border-b-black border-b-4 rounded-md hover-image">
-                        <img src="{{ URL('product/' . $prod->image2) }}" alt="" class="object-cover size-16 hover-image border-b-white hover:border-b-black border-b-4 rounded-md hover-image">
-                        <img src="{{ URL('product/' . $prod->image3) }}" alt="" class="object-cover size-16 hover-image border-b-white hover:border-b-black border-b-4 rounded-md hover-image">
-                    </div>
-
                     <!-- Add Size Selection -->
                     <div>
                         <p class="text-base font-bold sm:text-xl mt-10">
@@ -59,10 +60,14 @@
                             <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 8.5 / W 10">US M 8.5 / W 10</button>
                         </div>
                     </div>
-                    <div>
-                        <button class="increase-quantity px-2 py-1 border rounded-l-lg border-gray-300 border-r-0 hover:bg-black hover:text-white">+</button><input type="number" value="1" min="1" class="w-12 py-1 text-center border border-gray-300"><button class="decrease-quantity px-2 py-1 border rounded-r-lg border-gray-300 border-l-0 hover:bg-black hover:text-white">-</button>
+                    
+                    <!-- <div>
+                        <p class="text-base font-bold sm:text-xl mt-10">
+                            Select Quantity
+                        </p>
+                        <button class="mt-6 increase-quantity px-2 py-1 border rounded-l-lg border-gray-300 border-r-0 hover:bg-black hover:text-white">+</button><input type="number" value="1" min="1" class="w-12 py-1 text-center border border-gray-300"><button class="decrease-quantity px-2 py-1 border rounded-r-lg border-gray-300 border-l-0 hover:bg-black hover:text-white">-</button>
 
-                    </div>
+                    </div> -->
 
                     <!-- Add Cart Form -->
                     <!-- Add Cart Form -->
@@ -71,7 +76,6 @@
                         <!-- Set variant image dynamically -->
                         
                         <input type="hidden" name="quantity" value="1">
-                      
 
                         <!-- Size -->
                         <input type="hidden" name="size" id="selected-size" value="">
@@ -149,29 +153,7 @@
             });
         }
     });
-
-    // Quantity increase and decrease functionality
-    const increaseButtons = document.querySelectorAll('.increase-quantity');
-    const decreaseButtons = document.querySelectorAll('.decrease-quantity');
-
-    increaseButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            const input = this.nextElementSibling;
-            input.value = parseInt(input.value) + 1;
-        });
-    });
-
-    decreaseButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            const input = this.previousElementSibling;
-            if (parseInt(input.value) > 1) {
-                input.value = parseInt(input.value) - 1;
-            }
-        });
-    });
 });
-
-
 </script>
 
 
